@@ -1,5 +1,3 @@
-from django.urls import path
-
 from .views import UUIDTimeViewSet
 from rest_framework.routers import DefaultRouter
 

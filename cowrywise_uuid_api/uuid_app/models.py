@@ -7,7 +7,7 @@ class UUIDTime(models.Model):
     uid = models.UUIDField(default=uuid.uuid4, unique=True, editable=False)
     timestamp = models.DateTimeField(auto_now_add=True)
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f'UUID: {self.uid}'
 
     class Meta:
