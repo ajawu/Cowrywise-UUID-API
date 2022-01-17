@@ -39,7 +39,7 @@ python manage.py runserver
 You can then access the project via your browser or any API testing tool of your choice.  
 Example with curl:
 ```bash
-curl -v http://localhost:8000/uuid/create-list/
+curl -v http://localhost:8000/api/v1/uuid/
 ```
 
 ## Testing
