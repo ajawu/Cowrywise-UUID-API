@@ -1,3 +1,4 @@
 #!/bin/sh
-docker build -t cowrywise_uuid_api:0.1.0 .
-docker run -d -p 8000:8000 cowrywise_uuid_api:0.1.0 sh -c "python manage.py migrate"
+poetry export --without-hashes > requirements.txt
+docker build -t cowrywise-uuid-api:v0.1 .
+docker run -it -d --name=uuid-api -p 8000:8000 cowrywise-uuid-api:v0.1

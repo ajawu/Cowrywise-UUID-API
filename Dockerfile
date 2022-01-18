@@ -19,7 +19,7 @@ ENV PATH="${POETRY_HOME}/bin:${PATH}"
 ENV PATH="${VENV_PATH}/bin:${PATH}"
 WORKDIR ${APP_HOME}
 
-COPY poetry.lock pyproject.toml ${APP_HOME}/
+COPY poetry.lock pyproject.toml entrypoint.sh ${APP_HOME}/
 
 RUN set -ex \
     && apt-get update \
@@ -29,11 +29,14 @@ RUN set -ex \
         python3-dev \
     && curl -sSL 'https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py' | python \
     && poetry --version \
-    && poetry install --no-dev
+    && poetry install --no-dev\
+    && sed -i 's/\r//' entrypoint.sh \
+    && chown $USER:$USER entrypoint.sh \
+    && chmod a+x entrypoint.sh
 
+ENV VIRTUAL_ENV=/app/.venv
 COPY . ${APP_HOME}/
 
-RUN ./build.sh
-
 EXPOSE 8000
-CMD ["gunicorn", "--reload", "--bind=0.0.0.0:8000", "--timeout=82", "--workers=3", "cowrywise_uuid_api.wsgi:application"]
+
+ENTRYPOINT ["sh", "/app/entrypoint.sh"]

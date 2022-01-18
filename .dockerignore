@@ -1,0 +1,7 @@
+sample.env
+*.sqlite3
+.venv
+.idea
+.mypy_cache
+.pytest_cache
+.git
